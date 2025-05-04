@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="url_input">URL: </label>
+    <input id="url_input" type="text" />
+    <button id="knof">Write</button>
+    <p id="text"></p>
+    <script>
+        document.querySelector("#knof").addEventListener("click", () => {
+            const ndef = new NDEFReader();
+
+            const url = document.querySelector("#url_input").value;
+
+            ndef.write({
+              records: [{ recordType: 'url', data: url }]
+            }).then(() => {
+                document.querySelector('#text').innerText = `URL written (${url}).`;
+            }).catch(error => {
+              document.querySelector('#text').innerText = `Write failed :-( try again: ${error}.`;
+            });
+        });
+    </script>
+</body>
+</html>
